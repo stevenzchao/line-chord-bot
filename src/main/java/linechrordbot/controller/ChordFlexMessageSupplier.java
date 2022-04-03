@@ -19,6 +19,7 @@ package linechrordbot.controller;
 import static java.util.Arrays.asList;
 
 import java.net.URI;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -44,29 +45,41 @@ import com.linecorp.bot.model.message.flex.unit.FlexFontSize;
 import com.linecorp.bot.model.message.flex.unit.FlexLayout;
 import com.linecorp.bot.model.message.flex.unit.FlexMarginSize;
 
-public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
+public class ChordFlexMessageSupplier implements Function<String,FlexMessage> {
     @Override
-    public FlexMessage get() {
+    public FlexMessage apply(String searchChord) {
         final Image heroBlock =
                 Image.builder()
-                     .url(ServletUriComponentsBuilder.fromCurrentContextPath().scheme("https").path("buttons/1.jpg").build().toUri())
+                     .url(ServletUriComponentsBuilder.fromCurrentContextPath().scheme("https").path("test.PNG").build().toUri())
                      .size(ImageSize.FULL_WIDTH)
                      .aspectRatio(ImageAspectRatio.R20TO13)
                      .aspectMode(ImageAspectMode.Cover)
-                     .action(new URIAction("label", URI.create("http://example.com"), null))
                      .build();
+        final Image heroBlock2 =
+                Image.builder()
+                     .url(ServletUriComponentsBuilder.fromCurrentContextPath().scheme("https").path("test2.PNG").build().toUri())
+                     .size(ImageSize.FULL_WIDTH)
+                     .aspectRatio(ImageAspectRatio.R20TO13)
+                     .aspectMode(ImageAspectMode.Cover)
+                     .build();
+        
+        final Box TestHeroBlock = Box.builder()
+                .layout(FlexLayout.HORIZONTAL)
+                .contents(asList(heroBlock, heroBlock2))
+                .build();
 
+        final Box headerBlock = createHeaderBlock();
         final Box bodyBlock = createBodyBlock();
         final Box footerBlock = createFooterBlock();
         final Bubble bubble =
                 Bubble.builder()
-//                	 .header(bodyBlock)
-                      .hero(heroBlock)
+                	 .header(headerBlock)
+                      .hero(TestHeroBlock)
                       .body(bodyBlock)
-                      .footer(footerBlock)
+//                      .footer(footerBlock)
                       .build();
 
-        return new FlexMessage("ALT", bubble);
+        return new FlexMessage("Chord~~", bubble);
     }
 
     private Box createFooterBlock() {
@@ -97,93 +110,90 @@ public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
                   .contents(asList(spacer, websiteAction, separator, postBackAction))
                   .build();
     }
-
-    private Box createBodyBlock() {
+    
+    private Box createHeaderBlock() {
         final Text title =
                 Text.builder()
-                    .text("歡迎來到和弦機器人")
+                    .text("Cm7 小七和弦")
                     .weight(TextWeight.BOLD)
                     .size(FlexFontSize.XL)
                     .build();
-
-//        final Box review = createReviewBox();
-
-        final Box info = createInfoBox();
-
         return Box.builder()
                   .layout(FlexLayout.VERTICAL)
-                  .contents(asList(title, info))
+                  .contents(asList(title))
+                  .build();
+    }
+
+    private Box createBodyBlock() {
+        final Box info = createInfoBox();
+        return Box.builder()
+                  .layout(FlexLayout.VERTICAL)
+                  .contents(asList(info))
                   .build();
     }
 
     private Box createInfoBox() {
-//        final Box place = Box
-//                .builder()
-//                .layout(FlexLayout.BASELINE)
-//                .spacing(FlexMarginSize.SM)
-//                .contents(asList(
-//                        Text.builder()
-//                            .text("Place")
-//                            .color("#aaaaaa")
-//                            .size(FlexFontSize.SM)
-//                            .flex(1)
-//                            .build(),
-//                        Text.builder()
-//                            .text("Shinjuku, Tokyo")
-//                            .wrap(true)
-//                            .color("#666666")
-//                            .size(FlexFontSize.SM)
-//                            .flex(5)
-//                            .build()
-//                ))
-//                .build();
-//        final Box time =
-//                Box.builder()
-//                   .layout(FlexLayout.BASELINE)
-//                   .spacing(FlexMarginSize.SM)
-//                   .contents(asList(
-//                           Text.builder()
-//                               .text("Time")
-//                               .color("#aaaaaa")
-//                               .size(FlexFontSize.SM)
-//                               .flex(1)
-//                               .build(),
-//                           Text.builder()
-//                               .text("10:00 - 23:00")
-//                               .wrap(true)
-//                               .color("#666666")
-//                               .size(FlexFontSize.SM)
-//                               .flex(5)
-//                               .build()
-//                   ))
-//                   .build();
-    	
-        final Box infoTitle = Box
+   	
+        final Box constructedNotes = Box
                 .builder()
                 .layout(FlexLayout.BASELINE)
                 .spacing(FlexMarginSize.SM)
                 .contents(asList(
                         Text.builder()
-                            .text("歡迎來到和弦機器人")
+                            .text("組成音：")
                             .wrap(true)
                             .color("#666666")
                             .size(FlexFontSize.SM)
-                            .flex(5)
+                            .flex(2)
+                            .build(),
+                            Text.builder()
+                            .text("C E G B")
+                            .wrap(true)
+                            .color("#aaaaaa")
+                            .size(FlexFontSize.SM)
                             .build()
                 ))
                 .build();
         
-        final Box infoSubtitle = Box
+        final Box simpleConstructedNotes = Box
                 .builder()
                 .layout(FlexLayout.BASELINE)
                 .spacing(FlexMarginSize.SM)
                 .contents(asList(
-                      Text.builder()
-                      .text("choose your way to practice!!")
-                      .color("#aaaaaa")
-                      .size(FlexFontSize.SM)
-                      .flex(1)
-                      .build()
+                        Text.builder()
+                            .text("簡譜組成音：")
+                            .wrap(true)
+                            .color("#666666")
+                            .size(FlexFontSize.SM)
+                            .flex(2)
+                            .build(),
+                            Text.builder()
+                            .text("1 3 5 7")
+                            .wrap(true)
+                            .color("#aaaaaa")
+                            .size(FlexFontSize.SM)
+                            .build()
+                ))
+                .build();
+        
+        final Box relativeSimpleConstructedNotes = Box
+                .builder()
+                .layout(FlexLayout.BASELINE)
+                .spacing(FlexMarginSize.SM)
+                .contents(asList(
+                        Text.builder()
+                            .text("相對音程(根音為1)：")
+                            .wrap(true)
+                            .color("#666666")
+                            .size(FlexFontSize.SM)
+                            .flex(2)
+                            .build(),
+                            Text.builder()
+                            .text("1 3 5 7")
+                            .wrap(true)
+                            .color("#aaaaaa")
+                            .size(FlexFontSize.SM)
+                            .build()
                 ))
                 .build();
 
@@ -191,7 +201,7 @@ public class ExampleFlexMessageSupplier implements Supplier<FlexMessage> {
                   .layout(FlexLayout.VERTICAL)
                   .margin(FlexMarginSize.LG)
                   .spacing(FlexMarginSize.SM)
-                  .contents(asList(infoTitle,infoSubtitle))
+                  .contents(asList(constructedNotes,simpleConstructedNotes,relativeSimpleConstructedNotes))
                   .build();
     }
 

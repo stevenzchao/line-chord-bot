@@ -14,7 +14,7 @@ public class WakeUpScheduler {
 	public void keepHerokuAlive() {
 		log.info("in keepHerokuAlive keepHerokuAlivekeepHerokuAlivekeepHerokuAlivekeepHerokuAlivekeepHerokuAlive ");
 		RestTemplate rs = new RestTemplate();
-		String result = rs.getForObject("https://blueberry-crumble-01036.herokuapp.com/callback keepHerokuAlive", String.class);
+		String result = rs.getForObject("https://blueberry-crumble-01036.herokuapp.com/keepHerokuAlive", String.class);
 		log.info(result);
 	}
 

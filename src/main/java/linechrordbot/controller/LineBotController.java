@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -41,6 +43,11 @@ public class LineBotController {
 		handleTextContent(event.getReplyToken(), event, message);
 
 	}
+	
+    @GetMapping(value="/keepHerokuAlive")
+    public String keepHerokuAlive(UnfollowEvent event) {
+        return "Oh It's Alive!!!!!";
+    }
 	
     @EventMapping
     public void handleUnfollowEvent(UnfollowEvent event) {

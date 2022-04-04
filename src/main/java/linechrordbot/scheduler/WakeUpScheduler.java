@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class WakeUpScheduler {
 
-	@Scheduled(initialDelay = 3000, fixedDelay = 180000)
+	@Scheduled(initialDelay = 3000, fixedDelay = 1080000)
 	public void keepHerokuAlive() {
 		log.info("in keepHerokuAlive keepHerokuAlivekeepHerokuAlivekeepHerokuAlivekeepHerokuAlivekeepHerokuAlive ");
 		RestTemplate rs = new RestTemplate();

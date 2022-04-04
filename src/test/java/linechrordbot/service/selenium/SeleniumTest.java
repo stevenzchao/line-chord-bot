@@ -23,10 +23,10 @@ public class SeleniumTest {
 		String uri = "http://quote.eastmoney.com/sh600036.html";
 
 		// 設定 chromedirver 的存放位置
-		System.getProperties().setProperty("webdriver.chrome.driver",
-				"src/test/resources/chromedriver");
 //		System.getProperties().setProperty("webdriver.chrome.driver",
-//				System.getenv("CHROMEDRIVER_PATH"));
+//				"src/test/resources/chromedriver");
+		System.getProperties().setProperty("webdriver.chrome.driver",
+				System.getenv("CHROMEDRIVER_PATH"));
 
 		// 設定瀏覽器引數123
 		ChromeOptions chromeOptions = new ChromeOptions();

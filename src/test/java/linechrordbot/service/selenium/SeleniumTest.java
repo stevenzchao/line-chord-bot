@@ -24,7 +24,7 @@ public class SeleniumTest {
 
 		// 設定 chromedirver 的存放位置
 		System.getProperties().setProperty("webdriver.chrome.driver",
-				"src/main/resources/chromedriver.exe");
+				System.getenv("CHROMEDRIVER_PATH"));
 
 		// 設定瀏覽器引數123
 		ChromeOptions chromeOptions = new ChromeOptions();

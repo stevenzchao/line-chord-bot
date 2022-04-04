@@ -26,7 +26,7 @@ public class SeleniumTest {
 		System.getProperties().setProperty("webdriver.chrome.driver",
 				"src/main/resources/chromedriver.exe");
 
-		// 設定瀏覽器引數
+		// 設定瀏覽器引數123
 		ChromeOptions chromeOptions = new ChromeOptions();
 		chromeOptions.addArguments("--no-sandbox");// 禁用沙箱
 		chromeOptions.addArguments("--disable-dev-shm-usage");// 禁用開發者shm

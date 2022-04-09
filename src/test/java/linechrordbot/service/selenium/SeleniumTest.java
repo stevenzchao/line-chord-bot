@@ -18,7 +18,7 @@ public class SeleniumTest {
 
 	@Test
 	public void testGetGooglePage() {
-		log.info("here  i am for chrome test");
+		log.info("here  i am for chrome test!");
 
 		String uri = "http://quote.eastmoney.com/sh600036.html";
 
